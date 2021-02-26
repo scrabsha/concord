@@ -14,7 +14,7 @@ pub struct Config {
 impl Config {
     pub fn new_with_initial(initial_profile_name: String) -> Config {
         Config {
-            available_profiles: Vec::new(),
+            available_profiles: vec![initial_profile_name.clone()],
             selected_profile: initial_profile_name,
         }
     }
@@ -59,6 +59,10 @@ impl Config {
         p.push(profile_name);
         p
     }
+
+    pub fn has_profile(&self, profile_name: &str) -> bool {
+        self.available_profiles.iter().any(|p| p == profile_name)
+    }
 }
 
 pub fn concord_config_dir() -> PathBuf {
@@ -78,6 +82,7 @@ pub fn discord_config_dir() -> PathBuf {
 #[derive(Debug)]
 pub enum AppError {
     Io(Error),
+    UnknownProfile(String),
 }
 
 impl From<Error> for AppError {
