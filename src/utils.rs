@@ -63,6 +63,10 @@ impl Config {
     pub fn has_profile(&self, profile_name: &str) -> bool {
         self.available_profiles.iter().any(|p| p == profile_name)
     }
+
+    pub fn add_profile(&mut self, profile_name: String) {
+        self.available_profiles.push(profile_name);
+    }
 }
 
 pub fn concord_config_dir() -> PathBuf {
@@ -83,6 +87,7 @@ pub fn discord_config_dir() -> PathBuf {
 pub enum AppError {
     Io(Error),
     UnknownProfile(String),
+    DuplicateProfile(String),
 }
 
 impl From<Error> for AppError {

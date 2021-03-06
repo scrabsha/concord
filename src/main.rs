@@ -1,5 +1,6 @@
 mod init;
 mod switch;
+mod new;
 pub mod utils;
 
 use std::env;
@@ -15,5 +16,6 @@ fn main() {
         .version(env!("CARGO_PKG_VERSION"))
         .command(init::command())
         .command(switch::command())
+        .command(new::command())
         .run(args)
 }
